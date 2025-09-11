@@ -100,7 +100,7 @@
 
       <button type="submit">Add Student</button>
     </form>
-    <a href="<?= site_url('students/get-all'); ?>" class="back-link">← Back to Student List</a>
+    <a href="<?= site_url('/'); ?>" class="back-link">← Back to Student List</a>
   </div>
 </body>
 </html>
