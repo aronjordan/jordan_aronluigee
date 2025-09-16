@@ -69,7 +69,7 @@ class StudentsController extends Controller {
                 'email' => $email
             );
             if($this->StudentsModel->update($id, $students)){
-                redirect('students/get-all/');
+                redirect('/');
             } 
         } else {
                 $students['user'] = $user;
@@ -79,7 +79,7 @@ class StudentsController extends Controller {
 
     function delete($id){
         if($this->StudentsModel->delete($id)){
-            redirect('students/get-all/');
+            redirect('/');
         } else {
             echo "Failed to delete record.";
         }
