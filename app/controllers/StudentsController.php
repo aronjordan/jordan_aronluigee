@@ -41,7 +41,7 @@ class StudentsController extends Controller {
             'email' => $email
         );
         if($this->StudentsModel->insert($students)){
-            redirect('students/get-all');
+            redirect('/');
         } 
     } else {
             $this->call->view('create');
