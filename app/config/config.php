@@ -79,13 +79,9 @@ $config['ENVIRONMENT']             = 'development';
 | WARNING: You MUST set this value!
 |
 */
-if (isset($_SERVER['HTTP_HOST'])) {
-    $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";
-    $config['base_url'] = $scheme . "://" . $_SERVER['HTTP_HOST'] . "/";
-} else {
-    // fallback (for CLI, artisan commands, etc.)
-    $config['base_url'] = 'http://localhost:4000/';
-}
+
+    $config['base_url'] = '';
+
 
 /*
 |--------------------------------------------------------------------------

@@ -112,8 +112,8 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                 <td><?= $student['first_name'] ?></td>
                 <td><?= $student['email'] ?></td>
                 <td class="actions">
-                    <a href="http://localhost:3000/students/update/<?= $student['id'] ?>" class="update">Update</a>
-                    <a href="http://localhost:3000/students/delete/<?= $student['id'] ?>" class="delete">Delete</a>
+                    <a href="<?= site_url('students/update/' . $student['id']); ?>" class="update">Update</a>
+                    <a href="<?= site_url('students/delete/' . $student['id']); ?>" class="delete">Delete</a>
                 </td>
             </tr>
         <?php endforeach; ?>
