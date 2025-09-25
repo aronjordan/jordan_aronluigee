@@ -90,7 +90,7 @@
 <body>
   <div class="container">
     <h1>Update Student</h1>
-    <form action="<?= site_url('students/update/' . $user['id']); ?>" method="post">
+    <form action="<?= site_url('update/' . $user['id']); ?>" method="post">
       <label for="firstname">First Name</label>
       <input type="text" id="firstname" name="firstname" value="<?= $user['first_name']; ?>" required>
 

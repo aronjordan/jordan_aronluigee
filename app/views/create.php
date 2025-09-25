@@ -88,7 +88,7 @@
 <body>
   <div class="container">
     <h1>Add New Student</h1>
-    <form action="<?= site_url('students/create'); ?>" method="post">
+    <form action="<?= site_url('create'); ?>" method="post">
       <label for="firstname">First Name</label>
       <input type="text" id="firstname" name="firstname" required>
 

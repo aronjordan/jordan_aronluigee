@@ -1,124 +1,224 @@
-<?php 
-defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Students CRUD</title>
-    <style>
-        body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f6f9;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users List</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: #eef1f5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
 
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 1000px;
+    }
 
-        table {
-            border-collapse: collapse;
-            width: 90%;
-            margin: 0 auto;
-            background: #fff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border-radius: 10px;
-            overflow: hidden;
-        }
+    h1 {
+      text-align: center;
+      color: #2d3748;
+      margin-bottom: 25px;
+      font-size: 24px;
+      font-weight: 600;
+    }
 
-        th, td {
-            padding: 12px 15px;
-            text-align: center;
-        }
+    /* Search bar */
+    .search-form {
+      display: flex;
+      margin-bottom: 25px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f9fafb;
+    }
 
-        th {
-            background: #2c3e50;
-            color: white;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    .search-form input {
+      flex: 1;
+      border: none;
+      padding: 12px 15px;
+      font-size: 14px;
+      background: transparent;
+      outline: none;
+    }
 
-        tr:nth-child(even) {
-            background: #f9f9f9;
-        }
+    .search-form button {
+      background: #2563eb;
+      border: none;
+      color: #fff;
+      padding: 0 22px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
 
-        tr:hover {
-            background: #f1f7ff;
-        }
+    .search-form button:hover {
+      background: #1d4ed8;
+    }
 
-        .actions a {
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            margin: 0 3px;
-            font-size: 14px;
-            transition: 0.2s;
-        }
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
 
-        .update {
-            background: #3498db;
-            color: white;
-        }
-        .update:hover {
-            background: #2980b9;
-        }
+    th, td {
+      border-bottom: 1px solid #e2e8f0;
+      padding: 14px;
+      text-align: center;
+    }
 
-        .delete {
-            background: #e74c3c;
-            color: white;
-        }
-        .delete:hover {
-            background: #c0392b;
-        }
+    th {
+      background: #f8fafc;
+      font-weight: 600;
+      color: #374151;
+    }
 
-        .add-btn {
-            display: block;
-            width: fit-content;
-            margin: 20px auto;
-            text-decoration: none;
-            background: #27ae60;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-        .add-btn:hover {
-            background: #1e8449;
-        }
-    </style>
+    tr:hover {
+      background: #f9fbfc;
+    }
+
+    /* Buttons/Links */
+    .action-link {
+      color: #2563eb;
+      font-weight: 500;
+      margin: 0 6px;
+      text-decoration: none;
+    }
+
+    .action-link:hover {
+      text-decoration: underline;
+    }
+
+    .delete-link {
+      color: #dc2626;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 15px 0 25px;
+      flex-wrap: wrap;
+    }
+
+    .pagination a,
+    .pagination span {
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1px solid #d1d5db;
+      font-size: 14px;
+      color: #374151;
+      transition: all 0.2s ease;
+    }
+
+    .pagination a:hover {
+      background: #f1f5f9;
+    }
+
+    .pagination span {
+      background: #2563eb;
+      color: #fff;
+      font-weight: 600;
+      border-color: #2563eb;
+    }
+
+    /* Create Button */
+    .create-btn {
+      display: inline-block;
+      padding: 12px 20px;
+      text-align: center;
+      background: #2563eb;
+      color: #fff;
+      font-size: 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s;
+      font-weight: 500;
+    }
+
+    .create-btn:hover {
+      background: #1d4ed8;
+    }
+
+    /* Center create button */
+    .create-container {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <h2>Students List</h2>
+  <div class="container">
+    <h1>Users List</h1>
 
+    <!-- Search -->
+    <form action="<?= site_url('/'); ?>" method="get" class="search-form">
+      <?php $q = isset($_GET['q']) ? $_GET['q'] : ''; ?>
+      <input type="text" name="q" placeholder="Search records..." value="<?= html_escape($q); ?>">
+      <button type="submit">Search</button>
+    </form>
+
+    <!-- Users Table -->
     <table>
+      <thead>
         <tr>
-            <th>ID</th>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Email</th>
-            <th>Actions</th>
+          <th>ID</th>
+          <th>Lastname</th>
+          <th>Firstname</th>
+          <th>Email</th>
+          <th>Action</th>
         </tr>
-        <?php foreach ($students as $student): ?>
-            <tr>
-                <td><?= $student['id'] ?></td>
-                <td><?= $student['last_name'] ?></td>
-                <td><?= $student['first_name'] ?></td>
-                <td><?= $student['email'] ?></td>
-                <td class="actions">
-                    <a href="<?= site_url('students/update/' . $student['id']); ?>" class="update">Update</a>
-                    <a href="<?= site_url('students/delete/' . $student['id']); ?>" class="delete">Delete</a>
-                </td>
-            </tr>
+      </thead>
+      <tbody>
+        <?php foreach(html_escape($users) as $user): ?>
+          <tr>
+            <td><?=($user['id']);?></td>
+            <td><?=($user['last_name']);?></td>
+            <td><?=($user['first_name']);?></td>
+            <td><?=($user['email']);?></td>
+            <td>
+              <a href="<?=site_url('update/'.$user['id']);?>" class="action-link">Update</a>
+              |
+              <a href="<?=site_url('delete/'.$user['id']);?>" onclick="return confirm('Are you sure you want to delete this record?');" class="action-link delete-link">Delete</a>
+            </td>
+          </tr>
         <?php endforeach; ?>
+      </tbody>
     </table>
 
-    <a href="<?= site_url('students/create'); ?>" class="add-btn">+ Add Student</a>
+    <!-- Pagination -->
+    <div class="pagination">
+      <?php if (isset($page)): ?>
+        <?= str_replace(
+            ['<a ', '<strong>', '</strong>'],
+            [
+                '<a class="page-link" ',
+                '<span class="current-page">',
+                '</span>'
+            ],
+            $page
+        ); ?>
+      <?php endif; ?>
+    </div>
+
+    <!-- Create Button -->
+    <div class="create-container">
+      <a href="<?=site_url('/create')?>" class="create-btn">+ Create New User</a>
+    </div>
+  </div>
 </body>
 </html>
